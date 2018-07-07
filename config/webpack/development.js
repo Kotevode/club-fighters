@@ -3,6 +3,8 @@ const autoprefixer = require("autoprefixer");
 const fbFixes = require("postcss-flexbugs-fixes");
 const webpack = require('webpack');
 
+console.log("asdfasdfasdfds")
+
 const loaderPostCss = {
     loader: "postcss-loader",
     options: {
@@ -37,13 +39,19 @@ module.exports = {
   ],
   module: {
     rules: [
-      {
-            test: /\.(js|jsx)$/,
-            loaders: ["eslint-loader"],
-            include: [resolve(__dirname, "src")],
-            exclude: /(node_modules)/,
-            enforce: "pre"
-        },
+
+        {
+              test: /\.(js|jsx)$/,
+              loaders: ["eslint-loader"],
+              include: [resolve(__dirname, "src")],
+              exclude: /(node_modules)/,
+              enforce: "pre"
+          },
+    {
+      test: /\.(js|jsx)$/,
+      exclude: /node_modules/,
+      use: ['babel-loader']
+    },
         {
             test: /\.module.scss$/,
             use: [
@@ -82,26 +90,22 @@ module.exports = {
             test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
             loader: "file-loader"
         },
-      {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: ['babel-loader']
-      }
     ]
   },
   resolve: {
-    extensions: ['*', '.js', '.jsx']
+    modules: [resolve(__dirname, "config"), "node_modules"],
+    extensions: ["*", ".js", ".jsx"],
   },
   output: {
-    path: __dirname + '/dist',
-    publicPath: '/',
+    path: __dirname + '/public',
+    publicPath: '/public/',
     filename: 'bundle.js'
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin()
   ],
   devServer: {
-    contentBase: './dist',
+    contentBase: './public',
     hot: true
   }
 };
