@@ -1,4 +1,33 @@
+const { resolve } = require('path');
+const autoprefixer = require("autoprefixer");
+const fbFixes = require("postcss-flexbugs-fixes");
 const webpack = require('webpack');
+
+const loaderPostCss = {
+    loader: "postcss-loader",
+    options: {
+        sourceMap: true,
+        indent: "postcss",
+        plugins: () => [
+            fbFixes,
+            autoprefixer({
+                browsers: [
+                    ">1%",
+                    "last 4 versions",
+                    "Firefox ESR",
+                    "not ie < 9" // React doesn"t support IE8 anyway
+                ],
+                flexbox: "no-2009"
+            })
+        ]
+    }
+}
+const loaderStyle = {
+    loader: "style-loader"
+};
+const loaderSass = {
+    loader: "sass-loader"
+};
 
 module.exports = {
   entry: [
@@ -8,6 +37,31 @@ module.exports = {
   ],
   module: {
     rules: [
+      {
+            test: /\.(js|jsx)$/,
+            loaders: ["eslint-loader"],
+            include: [resolve(__dirname, "src")],
+            exclude: /(node_modules)/,
+            enforce: "pre"
+        },
+        {
+            test: /\.module.scss$/,
+            use: [
+                loaderStyle,
+                {
+                    loader: "css-loader",
+                    options: {
+                        importLoaders: 2,
+                        modules: true,
+                        sourceMap: true,
+                        camelCase: true,
+                        localIdentName: "[name]__[local]___[hash:base64:5]"
+                    }
+                },
+                loaderPostCss,
+                loaderSass
+            ]
+        },
       {
             test: /\.css$/,
             use: ["style-loader", "css-loader"]
