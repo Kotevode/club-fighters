@@ -100,7 +100,11 @@ module.exports = {
     filename: 'bundle.js'
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.ProvidePlugin({
+      React: "react",
+      PropTypes: "prop-types"
+    })
   ],
   devServer: {
     inline: true,
