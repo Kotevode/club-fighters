@@ -1,1 +1,3 @@
-export default function() {}
+const rootReducer = () => {};
+
+export default rootReducer;

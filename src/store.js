@@ -7,25 +7,32 @@ import createHistory from 'history/createHashHistory'
 import reducers from './reducers'
 import rootSaga from './sagas'
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+export default function configureStore() {
+	const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+	const history = createHistory()
+	const loggerMiddleware = createLogger()
+	const sagaMiddleware = createSagaMiddleware()
+	const routingMiddleware = routerMiddleware(history)
 
-export const history = createHistory()
+	const store = createStore(
+	  	connectRouter(history)(reducers),
+	  	composeEnhancers(
+	    	applyMiddleware(
+	      		routingMiddleware,
+	      		sagaMiddleware,
+	      		loggerMiddleware,
+	    	)
+	  	)
+	)
 
-const loggerMiddleware = createLogger()
-const sagaMiddleware = createSagaMiddleware()
-const routingMiddleware = routerMiddleware(history)
+	if (module.hot) {
+    	// Enable Webpack hot module replacement for reducers
+    	module.hot.accept('./reducers', () => {
+      		const nextRootReducer = require('./reducers/index').default;
+      		store.replaceReducer(nextRootReducer);
+    	});
+  	}
 
-const store = createStore(
-  connectRouter(history)(reducers),
-  composeEnhancers(
-    applyMiddleware(
-      routingMiddleware,
-      sagaMiddleware,
-      loggerMiddleware,
-    )
-  )
-)
-
-sagaMiddleware.run(rootSaga)
-
-export default store
+	sagaMiddleware.run(rootSaga)
+	return store
+}

@@ -5,13 +5,15 @@ import { ConnectedRouter } from 'connected-react-router'
 import { Web3Provider } from 'react-web3'
 
 import App from './App'
-import store from './store'
+import configureStore from './store'
+
+const store = configureStore();
 
 ReactDOM.render(
-  <Web3Provider>
     <Provider store={store}>
         <App />
-    </Provider>
-  </Web3Provider>,
+    </Provider>,
   document.getElementById('root')
 );
+
+if (module.hot) module.hot.accept();

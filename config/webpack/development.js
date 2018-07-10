@@ -3,8 +3,6 @@ const autoprefixer = require("autoprefixer");
 const fbFixes = require("postcss-flexbugs-fixes");
 const webpack = require('webpack');
 
-console.log("asdfasdfasdfds")
-
 const loaderPostCss = {
     loader: "postcss-loader",
     options: {
@@ -33,9 +31,9 @@ const loaderSass = {
 
 module.exports = {
   entry: [
-    'webpack-hot-middleware/client',
     'babel-polyfill',
-    './src/index.js'
+    './src/index.js',
+    'webpack-hot-middleware/client',
   ],
   module: {
     rules: [
@@ -105,6 +103,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin()
   ],
   devServer: {
+    inline: true,
     contentBase: './public',
     hot: true
   }
