@@ -91,7 +91,7 @@ module.exports = {
     ]
   },
   resolve: {
-    modules: [resolve(__dirname, "config"), "node_modules"],
+    modules: ["src", "node_modules"],
     extensions: ["*", ".js", ".jsx"],
   },
   output: {

@@ -9,7 +9,6 @@ import rootSaga from './sagas'
 
 export default function configureStore() {
 	const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-	const history = createHistory()
 	const loggerMiddleware = createLogger()
 	const sagaMiddleware = createSagaMiddleware()
 	const routingMiddleware = routerMiddleware(history)
@@ -36,3 +35,5 @@ export default function configureStore() {
 	sagaMiddleware.run(rootSaga)
 	return store
 }
+
+export const history = createHistory()
