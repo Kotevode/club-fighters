@@ -41,6 +41,7 @@
     "jsx-a11y/no-static-element-interactions": "off",
     "jsx-a11y/no-noninteractive-element-interactions": "off",
     "jsx-a11y/no-noninteractive-tabindex": "off",
+    "no-underscore-dangle": "off",
     "react/no-find-dom-node": "off",
     "react/no-did-mount-set-state": "off",
     "react/forbid-prop-types": "off",
@@ -65,6 +66,12 @@
     "no-param-reassign": "off",
     "linebreak-style": "off",
     "class-methods-use-this": "off",
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        devDependencies: true
+      }
+    ]
   },
   "settings": {
       "import/resolver": {

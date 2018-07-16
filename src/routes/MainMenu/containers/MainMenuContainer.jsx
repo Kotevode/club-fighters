@@ -1,6 +1,6 @@
-import MainMenu from "../components/MainMenu"
-import { connect } from "react-redux"
+import { connect } from "react-redux";
+import MainMenu from "../components/MainMenu";
 
-const MainMenuContainer = props => <MainMenu {...props} />
+const MainMenuContainer = props => <MainMenu {...props} />;
 
-export default connect(state => ({}))(MainMenuContainer)
+export default connect(() => ({}))(MainMenuContainer);

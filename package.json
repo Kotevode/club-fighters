@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "autoprefixer": "6.5.1",
+    "autoprefixer": "^6.5.1",
     "babel-core": "6.17.0",
-    "babel-eslint": "7.1.1",
+    "babel-eslint": "^7.2.3",
     "babel-jest": "17.0.2",
     "babel-loader": "^7.1.5",
     "babel-polyfill": "^6.26.0",
@@ -18,7 +18,7 @@
     "cross-spawn": "4.0.2",
     "css-loader": "0.26.0",
     "detect-port": "1.0.1",
-    "eslint": "^5.0.1",
+    "eslint": "^4",
     "eslint-config-airbnb": "^17.0.0",
     "eslint-config-react-app": "^0.5.0",
     "eslint-loader": "^2.0.0",
@@ -26,6 +26,7 @@
     "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-jsx-a11y": "^6.1.0",
     "eslint-plugin-react": "^7.10.0",
+    "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^0.9.0",
     "filesize": "3.3.0",
     "fs-extra": "0.30.0",
@@ -57,6 +58,7 @@
   "dependencies": {
     "connected-react-router": "^4.3.0",
     "dotenv": "^6.0.0",
+    "history": "^4.7.2",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.7",
@@ -66,10 +68,12 @@
     "redux-action-creator": "^2.3.0",
     "redux-form": "^7.4.2",
     "redux-logger": "^3.0.6",
-    "redux-saga": "^0.16.0"
+    "redux-saga": "^0.16.0",
+    "web3": "^1.0.0-beta.34"
   },
   "scripts": {
-    "start": "webpack-dev-server --mode development --colors --progress --watch --config config/webpack/development.js",
+    "start": "webpack-dev-server --mode development --colors --progress --overlay --watch --config config/webpack/development.js",
+    "lint": "./node_modules/.bin/eslint . --fix",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom"
   },

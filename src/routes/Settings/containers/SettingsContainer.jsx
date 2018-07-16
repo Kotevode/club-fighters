@@ -1,6 +1,6 @@
-import Settings from "../components/Settings"
-import { connect } from "react-redux"
+import { connect } from "react-redux";
+import Settings from "../components/Settings";
 
-const SettingsContainer = props => <Settings {...props} />
+const SettingsContainer = props => <Settings {...props} />;
 
-export default connect(state => ({}))(SettingsContainer)
+export default connect(() => ({}))(SettingsContainer);
