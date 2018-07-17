@@ -47,6 +47,7 @@
     "style-loader": "0.13.1",
     "truffle-contract": "^1.1.8",
     "truffle-solidity-loader": "0.0.8",
+    "uglifyjs-webpack-plugin": "^1.2.7",
     "url-loader": "^0.5.7",
     "webpack": "^4.15.1",
     "webpack-cli": "^3.0.8",
@@ -72,9 +73,9 @@
     "web3": "^1.0.0-beta.34"
   },
   "scripts": {
-    "start": "webpack-dev-server --mode development --colors --progress --overlay --watch --config config/webpack/development.js",
+    "start": "webpack-dev-server --mode development --colors --progress --overlay --watch --config webpack.config.dev.js",
     "lint": "./node_modules/.bin/eslint . --fix",
-    "build": "node scripts/build.js",
+    "build": "NODE_ENV=production webpack -p --config webpack.config.prod.js",
     "test": "node scripts/test.js --env=jsdom"
   },
   "jest": {
