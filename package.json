@@ -79,20 +79,20 @@
     "test": "jest --coverage"
   },
   "jest": {
-      "collectCoverageFrom": [
-          "src/**/*.{js,jsx}"
-      ],
-      "setupFiles": [
-          "<rootDir>/config/polyfills.js"
-      ],
-      "testPathDirs": [
-          "<rootDir>/src"
-      ],
-      "moduleNameMapper": {
-          "^.+\\.(css)$": "<rootDir>/config/jest/cssTransform.js",
-          "^.+\\.(png|jpg|gif|svg|woff)$": "<rootDir>/config/jest/fileTransform.js"
-      },
-      "cacheDirectory": "<rootDir>/.tmp/jest"
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}"
+    ],
+    "setupFiles": [
+      "<rootDir>/config/polyfills.js"
+    ],
+    "testPathDirs": [
+      "<rootDir>/src"
+    ],
+    "moduleNameMapper": {
+      "^.+\\.(css)$": "<rootDir>/config/jest/cssTransform.js",
+      "^.+\\.(png|jpg|gif|svg|woff)$": "<rootDir>/config/jest/fileTransform.js"
+    },
+    "cacheDirectory": "<rootDir>/.tmp/jest"
   },
   "babel": {
     "presets": [
