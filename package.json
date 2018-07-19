@@ -1,5 +1,5 @@
 {
-  "name": "react-box",
+  "name": "club-fighters",
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
@@ -76,7 +76,8 @@
     "start": "webpack-dev-server --mode development --colors --progress --overlay --watch --config webpack.config.dev.js",
     "lint": "./node_modules/.bin/eslint . --fix",
     "build": "NODE_ENV=production webpack -p --config webpack.config.prod.js",
-    "test": "jest --coverage"
+    "test": "./node_modules/.bin/jest --watch",
+    "coverage": "./node_modules/.bin/jest --coverage"
   },
   "jest": {
     "collectCoverageFrom": [
