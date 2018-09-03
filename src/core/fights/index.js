@@ -70,6 +70,14 @@ export async function find(address) {
 	};
 }
 
+async function subscribe(address) {
+	const fight = await contracts.Fight(address);
+	const events = new EventEmitter();
+	fight.FightStarted()
+		.on("data", event => events.emit("FIGHT_STARTED", { address: event.address }));
+	return events;
+}
+
 /**
  * create - Creates a fight
  *
@@ -81,10 +89,7 @@ export async function create(options = {}) {
 	const account = options.from || await accounts.defaultAccount();
 	const { logs: [fightCreated] } = await clubFighters.createFight({ from: account });
 	const address = fightCreated.args._fightAddress;
-	const fight = await contracts.Fight(address);
-	const events = new EventEmitter();
-	fight.FightStarted()
-		.on("data", event => events.emit("FIGHT_STARTED", { address: event.address }));
+	const events = await subscribe(address);
 	return {
 		address,
 		events
