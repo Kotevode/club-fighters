@@ -47,6 +47,13 @@ export async function join(address, options = {}) {
 	await fight.join({ from: account });
 }
 
+async function player(address, index) {
+	const fight = await contracts.Fight(address);
+	const result = await fight.players.call(index);
+	result.hp = result.hp.toNumber();
+	return result;
+}
+
 /**
  * find - Returns fight object
  * @async
@@ -54,18 +61,13 @@ export async function join(address, options = {}) {
  * @return {Fight} Fight object
  */
 export async function find(address) {
-	const fight = await contracts.Fight(address);
-	const playerLeft = await fight.playerLeft.call();
-	const playerRight = await fight.playerRight.call();
+	const playerLeft = await player(address, 0);
+	const playerRight = await player(address, 1);
 	return {
 		address,
 		players: {
-			left: {
-				address: playerLeft
-			},
-			right: {
-				address: playerRight
-			}
+			left: playerLeft,
+			right: playerRight
 		}
 	};
 }

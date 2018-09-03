@@ -22,10 +22,12 @@ describe("join()", async () => {
 			address: fightAddress,
 			players: {
 				left: {
-					address: playerLeft
+					useraddress: playerLeft,
+					hp: 50,
 				},
 				right: {
-					address: playerRight
+					useraddress: playerRight,
+					hp: 50,
 				}
 			}
 		});

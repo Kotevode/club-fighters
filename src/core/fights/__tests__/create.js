@@ -11,7 +11,7 @@ describe("create()", async () => {
 			address,
 			players: {
 				left: {
-					address: defaultAccount
+					useraddress: defaultAccount
 				}
 			}
 		});
