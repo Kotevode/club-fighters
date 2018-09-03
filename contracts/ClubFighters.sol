@@ -11,8 +11,9 @@ contract ClubFighters {
 		owner = msg.sender;
 	}
 
-	function createFight() external {
+	function createFight() external returns (address) {
 		address newFight = new Fight(msg.sender);
 		emit FightCreated(newFight);
+		return newFight;
 	}
 }

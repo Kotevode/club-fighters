@@ -33,50 +33,8 @@
 
 import EventEmitter from "events";
 
-// TODO: Убрать относительный путь
-import ClubFighters from "../../../build/contracts/ClubFighters.json";
-import Fight from "../../../build/contracts/Fight.json";
-import getWeb3 from "../utils/getWeb3";
+import * as contracts from "../contracts";
 import * as accounts from "../accounts";
-
-async function game() {
-	const { web3 } = await getWeb3();
-	const networkId = await web3.eth.net.getId();
-	return new web3.eth.Contract(
-		ClubFighters.abi,
-		ClubFighters.networks[networkId].address
-	);
-}
-
-/**
- * create - Creates a fight
- *
- * @async
- * @return {}  New fight's contract address
- */
-export async function create(options = {}) {
-	const clubFighters = await game();
-	const account = options.from || await accounts.defaultAccount();
-	const {
-		events: {
-			FightCreated: {
-				returnValues: {
-					_fightAddress: address
-				}
-			}
-		}
-	} = await clubFighters.methods.createFight()
-		.send({ from: account });
-
-	let events = new EventEmitter();
-
-	return {
-		address,
-		events: {
-			on: () => {}
-		}
-	};
-}
 
 /**
  * join - Joins a fight by it's address
@@ -84,7 +42,9 @@ export async function create(options = {}) {
  * @param  {string} address fight's contract address
  */
 export async function join(address, options = {}) {
-
+	const fight = await contracts.Fight(address);
+	const account = options.from || await accounts.defaultAccount();
+	await fight.join({ from: account });
 }
 
 /**
@@ -94,21 +54,41 @@ export async function join(address, options = {}) {
  * @return {Fight} Fight object
  */
 export async function find(address) {
-	const { web3 } = await getWeb3();
-	const fight = new web3.eth.Contract(
-		Fight.abi,
-		address
-	);
-	return Promise.all({
+	const fight = await contracts.Fight(address);
+	const playerLeft = await fight.playerLeft.call();
+	const playerRight = await fight.playerRight.call();
+	return {
 		address,
 		players: {
-			left: await fight.playerLeft.call()
+			left: {
+				address: playerLeft
+			},
+			right: {
+				address: playerRight
+			}
 		}
-	});
+	};
 }
 
-export async function subscribe(address) {
-	// const fight = await getFight(address);
+/**
+ * create - Creates a fight
+ *
+ * @async
+ * @return {}  New fight's contract address
+ */
+export async function create(options = {}) {
+	const clubFighters = await contracts.Game();
+	const account = options.from || await accounts.defaultAccount();
+	const { logs: [fightCreated] } = await clubFighters.createFight({ from: account });
+	const address = fightCreated.args._fightAddress;
+	const fight = await contracts.Fight(address);
+	const events = new EventEmitter();
+	fight.FightStarted()
+		.on("data", event => events.emit("FIGHT_STARTED", { address: event.address }));
+	return {
+		address,
+		events
+	};
 }
 
 export async function turn(address, actions) {

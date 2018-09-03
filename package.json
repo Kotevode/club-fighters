@@ -49,12 +49,14 @@
     "truffle-solidity-loader": "0.0.8",
     "uglifyjs-webpack-plugin": "^1.2.7",
     "url-loader": "^0.5.7",
+    "web3": "^1.0.0-beta.35",
     "webpack": "^4.15.1",
     "webpack-cli": "^3.0.8",
     "webpack-dev-server": "^3.1.4",
     "webpack-hot-middleware": "^2.22.2",
     "webpack-manifest-plugin": "1.1.0",
-    "whatwg-fetch": "1.0.0"
+    "whatwg-fetch": "1.0.0",
+    "ws": "^6.0.0"
   },
   "dependencies": {
     "connected-react-router": "^4.3.0",
@@ -70,13 +72,13 @@
     "redux-form": "^7.4.2",
     "redux-logger": "^3.0.6",
     "redux-saga": "^0.16.0",
-    "web3": "^1.0.0-beta.34"
+    "truffle-contract": "^4.0.0-beta.0"
   },
   "scripts": {
     "start": "webpack-dev-server --mode development --colors --progress --overlay --watch --config webpack.config.dev.js",
     "lint": "./node_modules/.bin/eslint . --fix",
     "build": "NODE_ENV=production webpack -p --config webpack.config.prod.js",
-    "test": "./node_modules/.bin/jest --watch",
+    "test": "truffle migrate --network test && ./node_modules/.bin/jest --watch",
     "coverage": "./node_modules/.bin/jest --coverage"
   },
   "jest": {

@@ -14,23 +14,30 @@ describe("join()", async () => {
 		({ address: fightAddress, events } = await fights.create({ from: playerLeft }));
 	});
 
-	it("Starts fight", async () => {
+	it("Assigns right player", async () => {
+		await fights.join(fightAddress, { from: playerRight });
+
+		const fight = await fights.find(fightAddress);
+		expect(fight).toMatchObject({
+			address: fightAddress,
+			players: {
+				left: {
+					address: playerLeft
+				},
+				right: {
+					address: playerRight
+				}
+			}
+		});
+	});
+
+	it("Starts fight with an event", async () => {
 		const spy = sinon.spy();
 		events.on("FIGHT_STARTED", spy);
 
 		await fights.join(fightAddress, { from: playerRight });
-		sinon.assert.calledWith(spy, "FIGHT_STARTED", {
-			fight: {
-				address: fightAddress,
-				players: {
-					left: {
-						address: playerLeft
-					},
-					right: {
-						address: playerRight
-					}
-				}
-			}
+		sinon.assert.calledWith(spy, {
+			address: fightAddress
 		});
 	});
 });
