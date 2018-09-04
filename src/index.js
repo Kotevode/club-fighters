@@ -5,7 +5,9 @@ import { ConnectedRouter } from "connected-react-router";
 import { Web3Provider } from "react-web3";
 import { Switch, Route } from "react-router-dom";
 
-import { MainMenu, Settings } from "./routes";
+import {
+	MainMenu, Settings, NewGame, JoinGame
+} from "./routes";
 import configureStore, { history } from "./store";
 
 const store = configureStore();
@@ -15,8 +17,10 @@ ReactDOM.render(
 		<Provider store={store}>
 			<ConnectedRouter history={history}>
 				<Switch>
-					<Route path="/settings" component={Settings} />
 					<Route exact path="/" component={MainMenu} />
+					<Route path="/settings" component={Settings} />
+					<Route path="/new-game" component={NewGame} />
+					<Route path="/join-game" component={JoinGame} />
 				</Switch>
 			</ConnectedRouter>
 		</Provider>
