@@ -18,8 +18,6 @@
     "react"
   ],
   "globals": {
-    "$": true,
-    "_t": true,
     "React": true,
     "ReactDOM": true,
     "PropTypes": true,
@@ -70,12 +68,13 @@
       {
         devDependencies: true
       }
-    ]
+    ],
+    "import/no-unresolved": "off"
   },
   "settings": {
       "import/resolver": {
         "webpack": {
-          "config": "webpack.config.js"
+          "config": "./webpack.config.dev.js"
         }
       }
     }
