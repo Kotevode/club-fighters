@@ -78,7 +78,7 @@
     "start": "webpack-dev-server --mode development --colors --progress --overlay --watch --config webpack.config.dev.js",
     "lint": "./node_modules/.bin/eslint . --fix",
     "build": "NODE_ENV=production webpack -p --config webpack.config.prod.js",
-    "test": "truffle migrate --network test && ./node_modules/.bin/jest --watch",
+    "test": "truffle migrate --network development && ./node_modules/.bin/jest --watch",
     "coverage": "./node_modules/.bin/jest --coverage"
   },
   "jest": {

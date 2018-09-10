@@ -3,6 +3,8 @@ const autoprefixer = require("autoprefixer");
 const fbFixes = require("postcss-flexbugs-fixes");
 const webpack = require("webpack");
 
+const { development: network } = require("./truffle").networks;
+
 const loaderPostCss = {
 	loader: "postcss-loader",
 	options: {
@@ -106,7 +108,10 @@ module.exports = {
 		new webpack.ProvidePlugin({
 			React: "react",
 			PropTypes: "prop-types"
-		})
+		}),
+		new webpack.DefinePlugin({
+			NETWORK: JSON.stringify(network)
+		}),
 	],
 	devServer: {
 		inline: true,
