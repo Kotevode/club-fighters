@@ -1,1 +1,1 @@
-export JoinGame from "./JoinGameContainer";
+export default from "./JoinGameContainer";

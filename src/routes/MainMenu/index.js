@@ -1,1 +1,1 @@
-export MainMenu from "./MainMenuContainer";
+export default from "./MainMenuContainer";

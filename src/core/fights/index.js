@@ -35,6 +35,15 @@ import EventEmitter from "events";
 
 import * as contracts from "../contracts";
 import * as accounts from "../accounts";
+import { events as fightEvents } from "../constants";
+
+async function subscribe(address) {
+	const fight = await contracts.Fight(address);
+	const events = new EventEmitter();
+	fight.FightStarted()
+		.on("data", event => events.emit(fightEvents.FIGHT_STARTED, { address: event.address }));
+	return events;
+}
 
 /**
  * join - Joins a fight by it's address
@@ -45,6 +54,11 @@ export async function join(address, options = {}) {
 	const fight = await contracts.Fight(address);
 	const account = options.from || await accounts.defaultAccount();
 	await fight.join({ from: account });
+	const events = await subscribe(address);
+	return {
+		address,
+		events
+	};
 }
 
 async function player(address, index) {
@@ -72,14 +86,6 @@ export async function find(address) {
 	};
 }
 
-async function subscribe(address) {
-	const fight = await contracts.Fight(address);
-	const events = new EventEmitter();
-	fight.FightStarted()
-		.on("data", event => events.emit("FIGHT_STARTED", { address: event.address }));
-	return events;
-}
-
 /**
  * create - Creates a fight
  *
@@ -98,6 +104,8 @@ export async function create(options = {}) {
 	};
 }
 
+/*
 export async function turn(address, actions) {
 
 }
+*/

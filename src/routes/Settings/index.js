@@ -1,1 +1,1 @@
-export Settings from "./SettingsContainer";
+export default from "./SettingsContainer";

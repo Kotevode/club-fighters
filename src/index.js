@@ -1,28 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import { ConnectedRouter } from "connected-react-router";
 import { Web3Provider } from "react-web3";
-import { Switch, Route } from "react-router-dom";
 
-import {
-	MainMenu, Settings, NewGame, JoinGame
-} from "./routes";
-import configureStore, { history } from "./store";
+import Router from "./routes";
+import configureStore from "./store";
 
 const store = configureStore();
+
+const Web3 = require("web3");
+
+window.web3 = new Web3(new Web3.providers.WebsocketProvider("ws://127.0.0.1:8545"));
 
 ReactDOM.render(
 	<Web3Provider>
 		<Provider store={store}>
-			<ConnectedRouter history={history}>
-				<Switch>
-					<Route exact path="/" component={MainMenu} />
-					<Route path="/settings" component={Settings} />
-					<Route path="/new-game" component={NewGame} />
-					<Route path="/join-game" component={JoinGame} />
-				</Switch>
-			</ConnectedRouter>
+			<Router />
 		</Provider>
 	</Web3Provider>,
 	document.getElementById("root")
