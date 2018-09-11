@@ -14,12 +14,12 @@ contract Fight {
 
 	event FightStarted();
 
-	constructor(address _playerLeft) public {
-		players[LEFT] = Player(_playerLeft, MAX_HP);
+	constructor() public {
+		players[LEFT] = Player(tx.origin, MAX_HP);
 	}
 
 	function join() external {
-		players[RIGHT] = Player(msg.sender, MAX_HP);
+		players[RIGHT] = Player(tx.origin, MAX_HP);
 		emit FightStarted();
 	}
 

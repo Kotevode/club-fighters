@@ -8,11 +8,11 @@ contract ClubFighters {
 	event FightCreated(address _fightAddress);
 
 	constructor() public {
-		owner = msg.sender;
+		owner = tx.origin;
 	}
 
 	function createFight() external returns (address) {
-		address newFight = new Fight(msg.sender);
+		address newFight = new Fight();
 		emit FightCreated(newFight);
 		return newFight;
 	}
