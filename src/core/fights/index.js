@@ -38,7 +38,7 @@ import * as accounts from "../accounts";
 import { events as fightEvents } from "../constants";
 
 async function subscribe(address) {
-	const fight = await contracts.Fight(address);
+	const fight = await contracts.Fight(address, "ws");
 	const events = new EventEmitter();
 	fight.FightStarted()
 		.on("data", event => events.emit(fightEvents.FIGHT_STARTED, { address: event.address }));

@@ -3,14 +3,16 @@ import contract from "truffle-contract";
 import ClubFightersJSON from "../../../build/contracts/ClubFighters.json";
 import FightJSON from "../../../build/contracts/Fight.json";
 
-export const Game = async () => {
-	const c = contract(ClubFightersJSON);
-	c.setProvider(window.web3.currentProvider);
-	return c.deployed();
-};
+function build(json, provider = "metamask") {
+	const c = contract(json);
+	if (provider === "metamask") {
+		c.setProvider(window.web3.currentProvider);
+	} else if (provider === "ws") {
+		c.setProvider(window.web3ws.currentProvider);
+	}
+	return c;
+}
 
-export const Fight = async (address) => {
-	const c = contract(FightJSON);
-	c.setProvider(window.web3.currentProvider);
-	return c.at(address);
-};
+
+export const Fight = async (address, provider) => build(FightJSON, provider).at(address);
+export const Game = async (provider) => build(ClubFightersJSON, provider).deployed();

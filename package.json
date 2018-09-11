@@ -66,7 +66,7 @@
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
-    "react-web3": "^0.4.5",
+    "react-web3": "git://github.com/Kotevode/react-web3.git#network-id-type-fix",
     "redux": "^4.0.0",
     "redux-action-creator": "^2.3.0",
     "redux-form": "^7.4.2",
