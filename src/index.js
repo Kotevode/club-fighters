@@ -8,9 +8,16 @@ import configureStore from "./store";
 
 const store = configureStore();
 
-const Web3 = require("web3");
-
-window.web3 = new Web3(new Web3.providers.WebsocketProvider("ws://127.0.0.1:8545"));
+if (process.env.NODE_ENV === "development") {
+	const Web3 = require("web3");
+	if (NETWORK.websockets) {
+		const { WebsocketProvider } = Web3.providers;
+		const provider = new WebsocketProvider(`ws://${NETWORK.host}:${NETWORK.port}`);
+		window.web3 = new Web3(provider);
+	} else if (window.web3) {
+		window.web3 = new Web3(window.web3.currentProvider);
+	}
+}
 
 ReactDOM.render(
 	<Web3Provider>

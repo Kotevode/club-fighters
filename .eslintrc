@@ -21,7 +21,8 @@
     "React": true,
     "ReactDOM": true,
     "PropTypes": true,
-    "Config": true
+    "Config": true,
+    "NETWORK": true,
   },
   "rules": {
     "indent": ["error", "tab"],
